@@ -47,7 +47,6 @@ int main( )
                       cout << "Record was inserted in table" << endl << endl;
                       break;
             case 'E': // erase
-            case 'D': // delete
                       cout << "Enter key (int >= 0) to delete: ";
                       cin >> key;
                       dataTable.erase( key );
