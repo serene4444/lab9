@@ -58,6 +58,12 @@ class Table
 public:
    Table( );
    void insert( const RecordType& entry );
+   // erase function
+   //    void erase( int key );
+   // Preconditions: key >= 0.
+   // Postconditions: If a record with the specified key exists in the table,
+   //    then that record has been removed; otherwise the table is unchanged.
+
    void erase( int key );
    void find( int key, bool& found, RecordType& result ) const; 
    int size( ) const;

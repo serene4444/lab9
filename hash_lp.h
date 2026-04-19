@@ -15,7 +15,6 @@ public:
    void erase( int key );
    void find( int key, bool& found, RecordType& result ) const; 
    int size( ) const;
-   void print( ) const;
 private:
    // HELPER FUNCTIONS 
    int hash( int key ) const;

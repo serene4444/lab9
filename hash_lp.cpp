@@ -1,6 +1,5 @@
 #include <cassert>
 #include <iostream>
-#include <iomanip>
 using namespace std;
 
 #include "hash_lp.h"
@@ -27,9 +26,18 @@ void Table::insert( const RecordType& entry )
    else
    {
       assert( size( ) < CAPACITY );
+      int firstDeleted = -1;
       index = hash( entry.key );
-      while ( table[index].key >= 0 )
+      int count = 0;
+      while ( count < CAPACITY && table[index].key != -1 )
+      {
+         if ( table[index].key == DELETED && firstDeleted == -1 )
+            firstDeleted = index;
          index = ( index + 1 ) % CAPACITY;
+         count++;
+      }
+      if ( firstDeleted != -1 )
+         index = firstDeleted;
       table[index] = entry;
       used++;
    }
@@ -61,21 +69,6 @@ int Table::size( ) const
    return used;
 }  
 
-void Table::print( ) const
-{
-   cout << "The hash table is: " << endl;
-   cout << "Index Key Data" << endl;
-   for ( int i = 0; i < CAPACITY; i++ )
-   {
-      cout << setw(5) << i
-           << setw(5) << table[i].key;
-      if ( table[i].key != -1 )
-         cout << setw(8) << table[i].data;
-      cout << endl;
-   }
-   cout << endl;
-}
-
 // findIndex function
 //     void findIndex( int key, bool& found, int &index ) const;
 // Preconditions:  key >= 0. 
@@ -90,7 +83,7 @@ void Table::findIndex( int key, bool& found, int& i ) const
    assert( key >=0 );
 
    i = hash( key );
-   while ( count < CAPACITY && table[i].key >= 0 && table[i].key != key )
+   while ( count < CAPACITY && table[i].key != -1 && table[i].key != key )
    {
       count++;
       i = (i + 1) % CAPACITY;
