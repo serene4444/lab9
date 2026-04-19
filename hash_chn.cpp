@@ -36,6 +36,34 @@ void Table::insert( const RecordType& entry )
    } 
 }
 
+void Table::erase( int key )
+{
+   int i;
+   Node* prev;
+   Node* ptr;
+
+   assert( key >= 0 );
+
+   i = hash( key );
+   prev = NULL;
+   ptr = table[i];
+   while ( ptr != NULL && ptr->rec.key != key )
+   {
+      prev = ptr;
+      ptr = ptr->next;
+   }
+
+   if ( ptr != NULL )
+   {
+      if ( prev == NULL )
+         table[i] = ptr->next;
+      else
+         prev->next = ptr->next;
+      delete ptr;
+      used--;
+   }
+}
+
 
 int Table::hash( int key ) const
 {

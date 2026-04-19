@@ -3,7 +3,7 @@
 //  HASH TABLE PROGRAM
 
 //  The Table class uses linear probing 
-//     and allows only insertions (no deletions).
+//     and supports insertions and deletions.
 //
 //*****************************************************************
 
@@ -47,6 +47,13 @@ int main( )
                       cout << "Record was inserted in table" << endl << endl;
 		      dataTable.print();
                       break;
+            case 'D': // delete
+                      cout << "Enter key (int >= 0) to delete: ";
+                      cin >> key;
+                      dataTable.erase( key );
+                      cout << "Delete request processed." << endl << endl;
+                      dataTable.print();
+                      break;
             case 'F': // find
                       cout << "Enter key (int >= 0) to search for: ";
                       cin >> key;
@@ -85,6 +92,7 @@ void print_menu( )
     cout << endl; 
     cout << "The following choices are available: " << endl;
     cout << " I   Insert a new record or update existing record" << endl;
+    cout << " D   Delete a record" << endl;
     cout << " F   Find a record" << endl;
     cout << " S   Get the number of records" << endl;
     cout << " Q   Quit this test program" << endl << endl;

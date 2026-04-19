@@ -58,6 +58,7 @@ class Table
 public:
    Table( );
    void insert( const RecordType& entry );
+   void erase( int key );
    void find( int key, bool& found, RecordType& result ) const; 
    int size( ) const;
 private:
